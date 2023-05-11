@@ -27,5 +27,24 @@ namespace OrderMicroservice.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrders()
+        {
+            var orders = await _firestoreService.GetOrders();
+            return Ok(orders);
+        }
+
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<Order>> GetOrder(string orderId)
+        {
+            var order = await _firestoreService.GetOrder(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order);
+        }
     }
 }

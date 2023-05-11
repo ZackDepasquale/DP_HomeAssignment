@@ -683,6 +683,7 @@
       },
       "ProductCatalogueMicroservice/1.0.0": {
         "dependencies": {
+          "Google.Cloud.Firestore": "3.3.0",
           "Newtonsoft.Json": "13.0.3",
           "Swashbuckle.AspNetCore": "5.6.3"
         },
