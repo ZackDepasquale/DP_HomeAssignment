@@ -1,0 +1,41 @@
+@page "/OrderDetails/{orderId}"
+@model OrderDetailsModel
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2>Order Details</h2>
+
+@if (Model.SelectedOrder != null)
+{
+    <h4>Order ID: @Model.SelectedOrder.Id</h4>
+    <p>User ID: @Model.SelectedOrder.UserId</p>
+    <p>Order Date: @Model.SelectedOrder.OrderDate</p>
+    <p>Status: @Model.SelectedOrder.Status</p>
+    <p>Total Amount: €@Model.SelectedOrder.TotalAmount</p>
+
+    <h4>Products</h4>
+    <ul>
+        @foreach (var product in Model.SelectedOrder.Products)
+        {
+            <li>
+                <h5>Product ID: @product.Id</h5>
+                <p>Title: @product.Title</p>
+                <p>Description: @product.Description</p>
+                <p>Price: €@product.Price</p>
+                <img src="@product.Image" alt="Product Image" width="200" height="200" />
+            </li>
+        }
+    </ul>
+    
+    <form method="post" asp-page-handler="CreatePayment">
+        <input type="hidden" name="userId" value="@Model.SelectedOrder.UserId" />
+        <input type="hidden" name="orderId" value="@Model.SelectedOrder.Id" />
+        <input type="hidden" name="amount" value="@Model.SelectedOrder.TotalAmount" />
+        <button type="submit" class="btn btn-primary">Create Payment</button>
+    </form>
+}
+else
+{
+    <p>No order found.</p>
+}

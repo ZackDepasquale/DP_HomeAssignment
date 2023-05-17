@@ -1,0 +1,25 @@
+@page "/PaymentDetails"
+@model PaymentDetailsModel
+@{
+    ViewData["Title"] = "Payment Details";
+}
+
+<h2>Payment Details</h2>
+
+@if (Model.Payment != null)
+{
+    <h4>Payment ID: @Model.Payment.Id</h4>
+    <p>User ID: @Model.Payment.UserId</p>
+    <p>Order ID: @Model.Payment.OrderId</p>
+    <p>Amount: €@Model.Payment.Amount</p>
+    <p>Payment Date: @Model.Payment.PaymentDate</p>
+
+    <form method="post" asp-page-handler="SendShippingRequest">
+        <input type="hidden" name="orderId" value="@Model.Payment.OrderId" />
+        <button type="submit" class="btn btn-primary">Send Shipping Request</button>
+    </form>
+}
+else
+{
+    <p>No payment found.</p>
+}

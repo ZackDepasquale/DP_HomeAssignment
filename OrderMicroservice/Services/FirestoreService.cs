@@ -102,52 +102,64 @@ namespace OrderMicroservice.Services
 
         public async Task<Order> GetOrder(string orderId)
         {
-            DocumentReference orderRef = _firestoreDb.Collection("Orders").Document(orderId);
-            DocumentSnapshot orderSnapshot = await orderRef.GetSnapshotAsync();
+            // Get the collection reference
+            CollectionReference ordersRef = _firestoreDb.Collection("Orders");
 
-            if (orderSnapshot.Exists)
+            // Build a query against the collection for documents where the 'Id' field equals orderId
+            Query query = ordersRef.WhereEqualTo("Id", orderId);
+
+            // Get the snapshot of the query result
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+            // If no documents matched the query, return null
+            if (querySnapshot.Count == 0)
             {
-                Dictionary<string, object> orderData = orderSnapshot.ToDictionary();
-
-                Order order = new Order
-                {
-                    Id = orderData["Id"].ToString(),
-                    UserId = orderData["UserId"].ToString(),
-                    OrderDate = orderData.ContainsKey("OrderDate") && orderData["OrderDate"] is Timestamp orderDateTimestamp
-                        ? orderDateTimestamp.ToDateTime()
-                        : default,
-                    Status = orderData["Status"].ToString(),
-                    Products = orderData.ContainsKey("Products")
-                        ? JsonConvert.DeserializeObject<List<Product>>(orderData["Products"].ToString())
-                        : new List<Product>()
-                };
-
-                if (orderData.ContainsKey("Products") && orderData["Products"] is List<object> productDataList)
-                {
-                    foreach (var productData in productDataList)
-                    {
-                        if (productData is Dictionary<string, object> productDictionary)
-                        {
-                            Product product = new Product
-                            {
-                                Id = Convert.ToInt32(productDictionary["Id"]),
-                                Title = productDictionary["Title"].ToString(),
-                                Description = productDictionary["Description"].ToString(),
-                                Price = double.Parse(productDictionary["Price"].ToString()),
-                                Category = productDictionary["Category"].ToString(),
-                                Image = productDictionary["Image"].ToString()
-                            };
-
-                            order.Products.Add(product);
-                        }
-                    }
-                }
-
-                return order;
+                return null;
             }
 
-            return null;
+            // Get the first (and should be the only) document from the query result
+            DocumentSnapshot orderSnapshot = querySnapshot.Documents[0];
+
+            // Proceed as before...
+            Dictionary<string, object> orderData = orderSnapshot.ToDictionary();
+
+            Order order = new Order
+            {
+                Id = orderData["Id"].ToString(),
+                UserId = orderData["UserId"].ToString(),
+                OrderDate = orderData.ContainsKey("OrderDate") && orderData["OrderDate"] is Timestamp orderDateTimestamp
+                    ? orderDateTimestamp.ToDateTime()
+                    : default,
+                Status = orderData["Status"].ToString(),
+                Products = orderData.ContainsKey("Products")
+                    ? JsonConvert.DeserializeObject<List<Product>>(orderData["Products"].ToString())
+                    : new List<Product>()
+            };
+
+            if (orderData.ContainsKey("Products") && orderData["Products"] is List<object> productDataList)
+            {
+                foreach (var productData in productDataList)
+                {
+                    if (productData is Dictionary<string, object> productDictionary)
+                    {
+                        Product product = new Product
+                        {
+                            Id = Convert.ToInt32(productDictionary["Id"]),
+                            Title = productDictionary["Title"].ToString(),
+                            Description = productDictionary["Description"].ToString(),
+                            Price = double.Parse(productDictionary["Price"].ToString()),
+                            Category = productDictionary["Category"].ToString(),
+                            Image = productDictionary["Image"].ToString()
+                        };
+
+                        order.Products.Add(product);
+                    }
+                }
+            }
+
+            return order;
         }
+
 
     }
 }

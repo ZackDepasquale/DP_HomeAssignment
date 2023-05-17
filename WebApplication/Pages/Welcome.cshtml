@@ -1,0 +1,13 @@
+﻿@page "{email}"
+@model WelcomeModel
+@{
+    ViewData["Title"] = "Welcome";
+    var email = Model.Email;
+}
+
+<h2>Welcome</h2>
+
+@if (!string.IsNullOrEmpty(email))
+{
+    <p>Welcome, @email!</p>
+}

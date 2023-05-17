@@ -22,7 +22,7 @@ namespace CustomerMicroservice.Services
             await usersRef.AddAsync(user);
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<(User, string)> GetUserByEmail(string email)
         {
             Query query = _firestoreDb.Collection("Users").WhereEqualTo("Email", email);
             QuerySnapshot snapshot = await query.GetSnapshotAsync();
@@ -30,23 +30,24 @@ namespace CustomerMicroservice.Services
             if (snapshot.Count > 0)
             {
                 DocumentSnapshot documentSnapshot = snapshot[0];
-                return documentSnapshot.ConvertTo<User>();
+                return (documentSnapshot.ConvertTo<User>(), documentSnapshot.Id);
             }
 
-            return null;
+            return (null, null);
         }
 
-        public async Task<User> GetUserDetails(string email)
+        public async Task<(User, string)> GetUserDetails(string email)
         {
-            User user = await GetUserByEmail(email);
+            Query query = _firestoreDb.Collection("Users").WhereEqualTo("Email", email);
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
 
-            if (user != null)
+            if (snapshot.Count > 0)
             {
-                user.Password = null; // Remove password before returning
-                return user;
+                DocumentSnapshot documentSnapshot = snapshot.Documents[0];
+                return (documentSnapshot.ConvertTo<User>(), documentSnapshot.Id);
             }
 
-            return null;
+            return (null, null);
         }
 
         public async Task AddNotification(string userId, string message)

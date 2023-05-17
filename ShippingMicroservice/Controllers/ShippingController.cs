@@ -58,5 +58,18 @@ namespace ShippingMicroservice.Controllers
 
             return Ok(shippingDetails);
         }
+
+        [HttpGet("GetDocId/{orderId}")]
+        public async Task<ActionResult<string>> GetFirestoreDocId(string orderId)
+        {
+            string docId = await _firestoreService.GetFirestoreDocId(orderId);
+            if (string.IsNullOrEmpty(docId))
+            {
+                return NotFound();
+            }
+
+            return Ok(docId);
+        }
+
     }
 }

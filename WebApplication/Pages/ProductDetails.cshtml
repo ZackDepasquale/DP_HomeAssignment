@@ -1,0 +1,19 @@
+@page
+@model ProductDetailsModel
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>Product Details</h2>
+
+<div>
+    <h4>@Model.Product.Title</h4>
+    <p>@Model.Product.Description</p>
+    <p>Price: €@Model.Product.Price</p>
+    <img src="@Model.Product.Image" alt="Product Image" width="200" height="200" />
+</div>
+
+<form method="post">
+    <input type="hidden" name="productId" value="@Model.Product.Id" />
+    <button type="submit" class="btn btn-primary">Add Item to Order</button>
+</form>

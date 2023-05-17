@@ -1,0 +1,53 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Orders</h2>
+
+<form method="get" id="orderForm">
+    <div class="form-group">
+        <label for="orderId">Select an Order:</label>
+        <select class="form-control" id="orderId" name="orderId" onchange="submitForm()">
+            <option value="">All Orders</option>
+            @foreach (var order in Model.Orders)
+            {
+                <option value="@order.Id">Order ID: @order.Id</option>
+            }
+        </select>
+    </div>
+</form>
+
+<h3>Selected Order ID: @Model.SelectedOrderId</h3>
+
+@if (!string.IsNullOrEmpty(Model.SelectedOrderId))
+{
+    <div>
+        <a class="btn btn-primary" href="/OrderDetails/@Model.SelectedOrderId">View Order Details</a>
+        
+        @if (Model.PaymentMade(Model.SelectedOrderId))
+        {
+            <a class="btn btn-primary" href="/PaymentDetails?orderId=@Model.SelectedOrderId">View Payment Details</a>
+            <a class="btn btn-primary" href="/ShippingDetails/@Model.GetShippingId(Model.SelectedOrderId)">View Shipping Details</a>
+        }
+    </div>
+}
+
+<ul>
+    @foreach (var order in Model.Orders)
+    {
+        <li>
+            <h4>Order ID: @order.Id</h4>
+            <p>User ID: @order.UserId</p>
+            <p>Order Date: @order.OrderDate</p>
+            <p>Status: @order.Status</p>
+        </li>
+    }
+</ul>
+
+<script>
+    function submitForm() {
+        document.getElementById("orderForm").submit();
+    }
+</script>

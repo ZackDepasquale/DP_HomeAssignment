@@ -32,7 +32,7 @@ namespace CustomerMicroservice.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User user)
         {
-            User storedUser = await _firestoreService.GetUserByEmail(user.Email);
+            var (storedUser, _) = await _firestoreService.GetUserByEmail(user.Email);
 
             if (storedUser != null && storedUser.CheckPassword(user.Password))
             {
@@ -45,10 +45,11 @@ namespace CustomerMicroservice.Controllers
         [HttpGet("details")]
         public async Task<IActionResult> GetDetails([FromQuery] string email)
         {
-            User user = await _firestoreService.GetUserDetails(email);
+            var (user, _) = await _firestoreService.GetUserDetails(email);
 
             if (user != null)
             {
+                user.Password = null; // Remove password before returning
                 return Ok(user);
             }
 
@@ -71,6 +72,19 @@ namespace CustomerMicroservice.Controllers
         {
             List<Notification> notifications = await _firestoreService.GetNotifications(userId);
             return Ok(notifications);
+        }
+
+        [HttpGet("getUserId")]
+        public async Task<IActionResult> GetUserId([FromQuery] string email)
+        {
+            var (user, id) = await _firestoreService.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                return Ok(new { userId = id });
+            }
+
+            return NotFound();
         }
     }
 }

@@ -1,0 +1,27 @@
+@page
+@model DetailsModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.User != null)
+{
+    <div>
+        <label>First Name:</label>
+        <p>@Model.User.FirstName</p>
+    </div>
+    <div>
+        <label>Last Name:</label>
+        <p>@Model.User.LastName</p>
+    </div>
+    <div>
+        <label>Email:</label>
+        <p>@Model.User.Email</p>
+    </div>
+}
+else
+{
+    <p>No user details available.</p>
+}

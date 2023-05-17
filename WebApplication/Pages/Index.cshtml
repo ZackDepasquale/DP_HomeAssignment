@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Notifications</h1>
+    @if (Model.Notifications != null && Model.Notifications.Count > 0)
+    {
+        <ul>
+            @foreach (var notification in Model.Notifications)
+            {
+                <li>@notification.Message (@notification.Date)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No notifications found.</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.UserEmail))
+    {
+        <div>
+            <a class="btn btn-primary" href="/CreateNotification">Add New Notification</a>
+        </div>
+    }
+</div>

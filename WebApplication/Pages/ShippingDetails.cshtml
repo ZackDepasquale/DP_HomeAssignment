@@ -1,0 +1,18 @@
+@page "/ShippingDetails/{shippingId}"
+@model ShippingDetailsModel
+@{
+    ViewData["Title"] = "Shipping Details";
+}
+
+<h2>Shipping Details</h2>
+
+@if (Model.ShippingDetails != null)
+{
+    <h4>Order ID: @Model.ShippingDetails.OrderId</h4>
+    <p>Shipping Status: @Model.ShippingDetails.ShippingStatus</p>
+    <p>Shipping Date: @Model.ShippingDetails.ShippingDate</p>
+}
+else
+{
+    <p>No shipping details found.</p>
+}

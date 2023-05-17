@@ -1,0 +1,40 @@
+@page
+@model ProductsModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products</h2>
+
+<form method="get" id="categoryForm">
+    <div class="form-group">
+        <label for="category">Select Category:</label>
+        <select class="form-control" id="category" name="category" onchange="submitForm()">
+            <option value="">Select an option</option>
+            <option value="electronics">Electronics</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="men's clothing">Men's Clothing</option>
+            <option value="women's clothing">Women's Clothing</option>
+        </select>
+    </div>
+</form>
+
+<h3>Selected Category: @Model.SelectedCategory</h3>
+
+<ul>
+    @foreach (var product in Model.Products)
+    {
+        <li>
+            <h4>@product.Title</h4>
+            <p>Price: €@product.Price</p>
+            <img src="@product.Image" alt="Product Image" width="200" height="200" />
+            <a class="btn btn-primary" href="/ProductDetails?id=@product.Id">View More Details</a>
+        </li>
+    }
+</ul>
+
+<script>
+    function submitForm() {
+        document.getElementById("categoryForm").submit();
+    }
+</script>

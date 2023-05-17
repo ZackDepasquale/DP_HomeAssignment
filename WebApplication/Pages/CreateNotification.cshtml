@@ -1,0 +1,15 @@
+@page
+@model CreateNotificationModel
+@{
+    ViewData["Title"] = "Create Notification";
+}
+
+<h2>Create Notification</h2>
+
+<form method="post">
+    <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="Messagesent" rows="3" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+</form>

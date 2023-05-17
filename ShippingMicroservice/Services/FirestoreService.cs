@@ -77,5 +77,22 @@ namespace ShippingMicroservice.Services
 
             return null;
         }
+
+        public async Task<string> GetFirestoreDocId(string orderId)
+        {
+            CollectionReference shippingRef = _firestoreDb.Collection("Shipping");
+
+            Query query = shippingRef.WhereEqualTo("OrderId", orderId);
+            QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
+
+            if (querySnapshot.Count == 0)
+            {
+                return null;
+            }
+
+            DocumentSnapshot documentSnapshot = querySnapshot.Documents[0];
+            return documentSnapshot.Id;
+        }
+
     }
 }
