@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Orders">Orders</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Shippings">Shippings</a>
+                        </li>
                         @if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UserEmail")))
                         {
                             <li class="nav-item">

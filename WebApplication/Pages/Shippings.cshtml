@@ -1,0 +1,41 @@
+@page "/Shippings"
+@model ShippingsModel
+@{
+    ViewData["Title"] = "Shippings";
+}
+
+<h2>Shippings</h2>
+
+@if (Model.ShippingList != null && Model.ShippingList.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Shipping ID</th>
+                <th>Order ID</th>
+                <th>Shipping Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shipping in Model.ShippingList)
+            {
+                <tr>
+                    <td>@shipping.Id</td>
+                    <td>@shipping.OrderId</td>
+                    <td>@shipping.ShippingDate</td>
+                    <td>
+                        <form method="post" asp-page-handler="UpdateStatus">
+                            <input type="hidden" name="orderId" value="@shipping.OrderId" />
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No shipping details found.</p>
+}

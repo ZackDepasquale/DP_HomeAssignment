@@ -373,3 +373,5 @@ C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\obj\Debug\net5
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\obj\Debug\net5.0\Razor\Pages\OrderDetails.cshtml.g.cs
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\obj\Debug\net5.0\Razor\Pages\PaymentDetails.cshtml.g.cs
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\obj\Debug\net5.0\Razor\Pages\ShippingDetails.cshtml.g.cs
+C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\obj\Debug\net5.0\Razor\Pages\Shippings.cshtml.g.cs
+C:\source\DP_THA\DistributedProgramming_THA\DP_THA\WebApplication\bin\Debug\net5.0\Newtonsoft.Json.dll

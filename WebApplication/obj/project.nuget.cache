@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "npclQSbdQUuMU97/HjxsfmQpedAqQogwgxZUMEnxbxwmlLy8xk/qaj6qtRhSlXAOpWcpCqW2cPavr02Gr/u97w==",
+  "dgSpecHash": "/ibCfTODFR4Vpwo/CfrOfRVpp7XD6F0PxGVlj7OAEDfCHKO8mmeHBBlIe3iM82Z6oOiRXH77nGdypBiZnXR3dA==",
   "success": true,
   "projectFilePath": "C:\\source\\DP_THA\\DistributedProgramming_THA\\DP_THA\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
@@ -50,6 +50,7 @@
     "C:\\Users\\zackd\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\zackd\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Users\\zackd\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\zackd\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\zackd\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\zackd\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\zackd\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
