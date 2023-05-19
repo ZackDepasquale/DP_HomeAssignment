@@ -33,12 +33,12 @@ namespace WebApplication.Pages
             var getOrderResponse = await _httpClient.GetAsync($"https://localhost:44381/Order/{OrderId}");
             if (getOrderResponse.IsSuccessStatusCode)
             {
-        SelectedOrder = await getOrderResponse.Content.ReadFromJsonAsync<Order>();
-        
-        // Calculate the total amount
-        SelectedOrder.TotalAmount = SelectedOrder.Products.Sum(product => product.Price);
-        
-        return Page();
+                SelectedOrder = await getOrderResponse.Content.ReadFromJsonAsync<Order>();
+                
+                // Calculate the total amount
+                SelectedOrder.TotalAmount = SelectedOrder.Products.Sum(product => product.Price);
+                
+                return Page();
             }
 
             return NotFound();

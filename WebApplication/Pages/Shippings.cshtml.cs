@@ -25,6 +25,7 @@ namespace WebApplication.Pages
         }
 
         public List<Shipping> ShippingList { get; set; }
+        public bool IsAdmin { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -37,6 +38,11 @@ namespace WebApplication.Pages
             {
                 ShippingList = new List<Shipping>();
             }
+
+            // Check if the user is an admin
+            var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
+            var isAdmin = _httpContextAccessor.HttpContext.Session.GetString("IsAdmin");
+            IsAdmin = !string.IsNullOrEmpty(loggedInUser) && bool.Parse(isAdmin);
 
             return Page();
         }

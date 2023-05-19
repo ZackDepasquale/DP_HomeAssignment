@@ -9,5 +9,7 @@ namespace WebApplication.Models
         public DateTime ShippingDate { get; set; }
         public string ShippingStatus { get; set; }
         public string DocumentId { get; set; }
+        public bool IsAdmin { get; set; }
+
     }
 }

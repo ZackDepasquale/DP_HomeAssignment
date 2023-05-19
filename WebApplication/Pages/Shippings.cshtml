@@ -25,10 +25,13 @@
                     <td>@shipping.OrderId</td>
                     <td>@shipping.ShippingDate</td>
                     <td>
-                        <form method="post" asp-page-handler="UpdateStatus">
-                            <input type="hidden" name="orderId" value="@shipping.OrderId" />
-                            <button type="submit" class="btn btn-primary">Update Status</button>
-                        </form>
+                        @if (Model.IsAdmin)
+                        {
+                            <form method="post" asp-page-handler="UpdateStatus">
+                                <input type="hidden" name="orderId" value="@shipping.OrderId" />
+                                <button type="submit" class="btn btn-primary">Update Status</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }

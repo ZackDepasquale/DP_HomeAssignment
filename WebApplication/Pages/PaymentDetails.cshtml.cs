@@ -24,6 +24,7 @@ namespace WebApplication.Pages
         public string OrderId { get; set; }
 
         public Payment Payment { get; set; }
+        public bool IsAdmin { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -36,6 +37,12 @@ namespace WebApplication.Pages
             if (getPaymentResponse.IsSuccessStatusCode)
             {
                 Payment = await getPaymentResponse.Content.ReadFromJsonAsync<Payment>();
+
+                // Check if the user is an admin
+                var loggedInUser = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
+                var isAdmin = _httpContextAccessor.HttpContext.Session.GetString("IsAdmin");
+                IsAdmin = !string.IsNullOrEmpty(loggedInUser) && bool.Parse(isAdmin);
+
                 return Page();
             }
 
@@ -91,6 +98,5 @@ namespace WebApplication.Pages
                 return RedirectToPage("/Index");
             }
         }
-
     }
 }

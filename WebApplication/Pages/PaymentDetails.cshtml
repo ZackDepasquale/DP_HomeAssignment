@@ -14,10 +14,13 @@
     <p>Amount: €@Model.Payment.Amount</p>
     <p>Payment Date: @Model.Payment.PaymentDate</p>
 
-    <form method="post" asp-page-handler="SendShippingRequest">
-        <input type="hidden" name="orderId" value="@Model.Payment.OrderId" />
-        <button type="submit" class="btn btn-primary">Order Shipped</button>
-    </form>
+    @if (Model.IsAdmin)
+    {
+        <form method="post" asp-page-handler="SendShippingRequest">
+            <input type="hidden" name="orderId" value="@Model.Payment.OrderId" />
+            <button type="submit" class="btn btn-primary">Order Shipped</button>
+        </form>
+    }
 }
 else
 {
