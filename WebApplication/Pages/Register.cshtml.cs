@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -38,10 +39,15 @@ namespace WebApplication.Pages
         {
             try
             {
+                UserRegistrationModel.IsAdmin = HttpContext.Request.Form["isAdmin"] == "on";
+
                 var response = await httpClient.PostAsJsonAsync("https://localhost:44382/User/register", UserRegistrationModel);
 
                 if (response.IsSuccessStatusCode)
                 {
+                    // Set the IsAdmin session value here
+                    HttpContext.Session.SetString("IsAdmin", UserRegistrationModel.IsAdmin.ToString());
+
                     RegistrationComplete = true;
                 }
                 else

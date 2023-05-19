@@ -74,6 +74,21 @@ namespace WebApplication.Pages
 
                     if (response.IsSuccessStatusCode)
                     {
+                        // Add the order received notification
+                        var notification = new Notification
+                        {
+                            UserId = userIdResult.UserId,
+                            Message = $"Order Received, Not Yet Dispatched: {order.Id}",
+                            Date = DateTime.UtcNow
+                        };
+
+                        var notificationResponse = await client.PostAsJsonAsync("https://localhost:44382/User/notifications", notification);
+                        if (!notificationResponse.IsSuccessStatusCode)
+                        {
+                            // Handle the failure to create the notification
+                            // You can choose to log the error or take appropriate action
+                        }
+
                         TempData["Message"] = "Item added to order successfully.";
                         return RedirectToPage("/Index");
                     }

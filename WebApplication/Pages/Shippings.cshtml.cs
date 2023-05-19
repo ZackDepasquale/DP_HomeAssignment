@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -12,11 +14,14 @@ namespace WebApplication.Pages
 {
     public class ShippingsModel : PageModel
     {
-        private readonly HttpClient _httpClient;
 
-        public ShippingsModel(IHttpClientFactory httpClientFactory)
+        private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ShippingsModel(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClientFactory.CreateClient();
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Shipping> ShippingList { get; set; }
@@ -38,30 +43,59 @@ namespace WebApplication.Pages
 
         public async Task<IActionResult> OnPostUpdateStatusAsync(string orderId)
         {
-            var getDocumentIdUrl = $"https://localhost:44330/Shipping/GetDocId/{orderId}";
-            var getDocumentIdResponse = await _httpClient.GetAsync(getDocumentIdUrl);
-            if (getDocumentIdResponse.IsSuccessStatusCode)
+            // Get the userId from the backend
+            string userEmail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
+            var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={userEmail}");
+
+            if (getUserIdResponse.IsSuccessStatusCode)
             {
-                var documentId = await getDocumentIdResponse.Content.ReadAsStringAsync();
+                var getUserIdResult = await getUserIdResponse.Content.ReadFromJsonAsync<UserDetailsResponse>();
+                var userId = getUserIdResult.UserId;
 
-                var updateStatusUrl = $"https://localhost:44330/Shipping/UpdateStatus";
-                var updateStatusRequest = new UpdateStatusRequest
+                var getDocumentIdUrl = $"https://localhost:44330/Shipping/GetDocId/{orderId}";
+                var getDocumentIdResponse = await _httpClient.GetAsync(getDocumentIdUrl);
+                if (getDocumentIdResponse.IsSuccessStatusCode)
                 {
-                    OrderId = documentId
-                };
+                    var documentId = await getDocumentIdResponse.Content.ReadAsStringAsync();
 
-                var content = new StringContent(JsonConvert.SerializeObject(updateStatusRequest), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync(updateStatusUrl, content);
-                if (response.IsSuccessStatusCode)
-                {
-                    // Update the shipping status successfully
-                    return RedirectToPage();
+                    var updateStatusUrl = $"https://localhost:44330/Shipping/UpdateStatus";
+                    var updateStatusRequest = new UpdateStatusRequest
+                    {
+                        OrderId = documentId
+                    };
+
+                    var content = new StringContent(JsonConvert.SerializeObject(updateStatusRequest), Encoding.UTF8, "application/json");
+                    var response = await _httpClient.PostAsync(updateStatusUrl, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Update the shipping status successfully
+
+                        // Add the order delivered and received notification
+                        var notification = new Notification
+                        {
+                            UserId = userId,
+                            Message = $"Order Delivered And Received: {orderId}",
+                            Date = DateTime.UtcNow
+                        };
+
+                        var notificationResponse = await _httpClient.PostAsJsonAsync("https://localhost:44382/User/notifications", notification);
+                        if (notificationResponse.IsSuccessStatusCode)
+                        {
+                            return RedirectToPage();
+                        }
+                        else
+                        {
+                            // Handle the failure to create the notification
+                            // You can choose to log the error or take appropriate action
+                        }
+                    }
                 }
-            } 
+            }
 
-            // Failed to update the shipping status
-            return BadRequest("Failed to update the shipping status.");
+            // Failed to update the shipping status or retrieve userId
+            return BadRequest("Failed to update the shipping status or retrieve userId.");
         }
+
 
 
 

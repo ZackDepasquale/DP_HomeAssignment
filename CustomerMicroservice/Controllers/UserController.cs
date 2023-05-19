@@ -86,5 +86,18 @@ namespace CustomerMicroservice.Controllers
 
             return NotFound();
         }
+
+        [HttpGet("getUserRole")]
+        public async Task<IActionResult> GetUserRole([FromQuery] string email)
+        {
+            var (user, _) = await _firestoreService.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                return Ok(user.IsAdmin.ToString());
+            }
+
+            return NotFound();
+        }
     }
 }

@@ -48,6 +48,14 @@ namespace WebApplication.Pages
 
             if (response.IsSuccessStatusCode)
             {
+                // Set the IsAdmin session value here based on the user's role
+                var userRoleResponse = await client.GetAsync($"https://localhost:44382/User/getUserRole?email={Input.Email}");
+                if (userRoleResponse.IsSuccessStatusCode)
+                {
+                    var userRole = await userRoleResponse.Content.ReadAsStringAsync();
+                    HttpContext.Session.SetString("IsAdmin", userRole);
+                }
+                
                 HttpContext.Session.SetString("UserEmail", Input.Email);
 
                 return RedirectToPage("Welcome", new { email = Input.Email });

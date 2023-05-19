@@ -38,19 +38,19 @@ namespace WebApplication.Pages
 
                     var getNotificationsResponse = await _httpClient.GetAsync($"https://localhost:44382/User/notifications?userId={UserId}");
                     if (getNotificationsResponse.IsSuccessStatusCode)
-                {
-                    Notifications = await getNotificationsResponse.Content.ReadFromJsonAsync<List<Notification>>();
+                    {
+                        Notifications = await getNotificationsResponse.Content.ReadFromJsonAsync<List<Notification>>();
+                    }
+                    else
+                    {
+                        // Handle error
+                    }
                 }
                 else
                 {
                     // Handle error
                 }
             }
-            else
-            {
-                // Handle error
-            }
         }
     }
-}
 }

@@ -17,6 +17,9 @@ namespace CustomerMicroservice.Models
         [FirestoreProperty]
         public string Password { get; set; }
 
+        [FirestoreProperty]
+        public bool IsAdmin { get; set; }
+
         public void SetPassword(string password)
         {
             this.Password = BCrypt.Net.BCrypt.HashPassword(password);

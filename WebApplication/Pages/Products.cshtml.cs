@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication.Models;
 
@@ -19,10 +20,12 @@ namespace WebApplication.Pages
         public string SelectedCategory { get; set; }
         public List<Product> Products { get; set; }
 
-        public async Task OnGetAsync(string category)
+        public async Task<IActionResult> OnGetAsync(string category)
         {
             SelectedCategory = category;
             Products = await GetProductsByCategory(category);
+
+            return Page();
         }
 
         private async Task<List<Product>> GetProductsByCategory(string category)
