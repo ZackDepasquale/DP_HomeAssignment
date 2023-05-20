@@ -28,7 +28,7 @@ namespace OrderMicroservice.Services
 
             foreach (var product in order.Products)
             {
-                var response = await _httpClient.GetAsync($"https://localhost:44396/product/{product.Id}"); // TODO: Update the URL according to your ProductCatalogueMicroservice URI
+                var response = await _httpClient.GetAsync($"https://productcataloguemicroservice-mvug6bkbra-uc.a.run.app/product/{product.Id}"); // TODO: Update the URL according to your ProductCatalogueMicroservice URI
 
                 if (response.IsSuccessStatusCode)
                 {

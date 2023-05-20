@@ -30,7 +30,7 @@ namespace WebApplication.Pages
                 return NotFound();
             }
 
-            var getOrderResponse = await _httpClient.GetAsync($"https://localhost:44381/Order/{OrderId}");
+            var getOrderResponse = await _httpClient.GetAsync($"https://ordermicroservice-mvug6bkbra-uc.a.run.app/Order/{OrderId}");
             if (getOrderResponse.IsSuccessStatusCode)
             {
                 SelectedOrder = await getOrderResponse.Content.ReadFromJsonAsync<Order>();
@@ -56,7 +56,7 @@ namespace WebApplication.Pages
             };
 
             // Send the post request to create the payment
-            var createPaymentResponse = await _httpClient.PostAsJsonAsync("https://localhost:44320/Payment", payment);
+            var createPaymentResponse = await _httpClient.PostAsJsonAsync("https://paymentmicroservice-mvug6bkbra-uc.a.run.app/Payment", payment);
 
             if (createPaymentResponse.IsSuccessStatusCode)
             {

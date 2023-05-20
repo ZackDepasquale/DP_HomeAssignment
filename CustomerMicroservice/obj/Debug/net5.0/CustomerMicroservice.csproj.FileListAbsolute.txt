@@ -54,3 +54,4 @@ C:\source\DP_THA\DistributedProgramming_THA\DP_THA\CustomerMicroservice\obj\Debu
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\CustomerMicroservice\obj\Debug\net5.0\CustomerMicroservice.genruntimeconfig.cache
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\CustomerMicroservice\obj\Debug\net5.0\ref\CustomerMicroservice.dll
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\CustomerMicroservice\bin\Debug\net5.0\BCrypt.Net-Next.dll
+C:\source\DP_THA\DistributedProgramming_THA\DP_THA\CustomerMicroservice\bin\Debug\net5.0\distributedprogramming-386215-8e01b2059244.json

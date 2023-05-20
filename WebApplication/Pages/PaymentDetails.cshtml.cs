@@ -33,7 +33,7 @@ namespace WebApplication.Pages
                 return NotFound();
             }
 
-            var getPaymentResponse = await _httpClient.GetAsync($"https://localhost:44320/Payment/{OrderId}");
+            var getPaymentResponse = await _httpClient.GetAsync($"https://paymentmicroservice-mvug6bkbra-uc.a.run.app/Payment/{OrderId}");
             if (getPaymentResponse.IsSuccessStatusCode)
             {
                 Payment = await getPaymentResponse.Content.ReadFromJsonAsync<Payment>();
@@ -53,7 +53,7 @@ namespace WebApplication.Pages
         {
             // Get the userId from the backend
             string userEmail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
-            var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={userEmail}");
+            var getUserIdResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserId?email={userEmail}");
 
             if (getUserIdResponse.IsSuccessStatusCode)
             {
@@ -61,7 +61,7 @@ namespace WebApplication.Pages
                 var userId = getUserIdResult.UserId;
 
                 // Send the request to the Shipping service
-                var response = await _httpClient.PostAsync($"https://localhost:44330/Shipping/{orderId}", null);
+                var response = await _httpClient.PostAsync($"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/{orderId}", null);
                 if (response.IsSuccessStatusCode)
                 {
                     // Add the order dispatched notification
@@ -73,7 +73,7 @@ namespace WebApplication.Pages
                     };
 
                     // Send the post request to add the notification
-                    var createNotificationResponse = await _httpClient.PostAsJsonAsync("https://localhost:44382/User/notifications", notification);
+                    var createNotificationResponse = await _httpClient.PostAsJsonAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/notifications", notification);
 
                     if (createNotificationResponse.IsSuccessStatusCode)
                     {

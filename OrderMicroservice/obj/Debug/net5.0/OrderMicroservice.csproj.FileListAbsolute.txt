@@ -59,3 +59,4 @@ C:\source\DP_THA\DistributedProgramming_THA\DP_THA\OrderMicroservice\obj\Debug\n
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\OrderMicroservice\obj\Debug\net5.0\OrderMicroservice.pdb
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\OrderMicroservice\obj\Debug\net5.0\OrderMicroservice.genruntimeconfig.cache
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\OrderMicroservice\obj\Debug\net5.0\ref\OrderMicroservice.dll
+C:\source\DP_THA\DistributedProgramming_THA\DP_THA\OrderMicroservice\bin\Debug\net5.0\distributedprogramming-386215-8e01b2059244.json

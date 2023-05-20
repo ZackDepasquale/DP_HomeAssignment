@@ -12,12 +12,12 @@ namespace ShippingMicroservice
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment host)
         {
             Configuration = configuration;
 
-
-            string credential_path = @"C:\source\DP_THA\DistributedProgramming_THA\DP_THA\distributedprogramming-386215-8e01b2059244.json"; //Local: '@"C:\source\DP_THA\DistributedProgramming_THA\DP_THA\distributedprogramming-386215-8e01b2059244.json"' //Docker: '@"/app/distributedprogramming-386215-8e01b2059244.json";'
+            string credential_path = host.ContentRootPath + "/distributedprogramming-386215-8e01b2059244.json";
+            //string credential_path = @"C:\source\DP_THA\DistributedProgramming_THA\DP_THA\distributedprogramming-386215-8e01b2059244.json"; //Local: '@"C:\source\DP_THA\DistributedProgramming_THA\DP_THA\distributedprogramming-386215-8e01b2059244.json"' //Docker: '@"/app/distributedprogramming-386215-8e01b2059244.json";'
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credential_path);
         }
 

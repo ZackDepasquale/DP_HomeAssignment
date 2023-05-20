@@ -29,7 +29,7 @@ namespace WebApplication.Pages
                 return NotFound();
             }
 
-            var getShippingDetailsResponse = await _httpClient.GetAsync($"https://localhost:44330/Shipping/{ShippingId}");
+            var getShippingDetailsResponse = await _httpClient.GetAsync($"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/{ShippingId}");
             if (getShippingDetailsResponse.IsSuccessStatusCode)
             {
                 ShippingDetails = await getShippingDetailsResponse.Content.ReadFromJsonAsync<ShippingDetails>();

@@ -37,7 +37,7 @@ namespace WebApplication.Pages
             }
 
             string userEmail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
-            var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={userEmail}");
+            var getUserIdResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserId?email={userEmail}");
 
             if (getUserIdResponse.IsSuccessStatusCode)
             {
@@ -60,7 +60,7 @@ namespace WebApplication.Pages
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await _httpClient.PostAsync("https://localhost:44382/User/notifications", jsonContent);
+                var response = await _httpClient.PostAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/notifications", jsonContent);
 
                 if (response.IsSuccessStatusCode)
                 {

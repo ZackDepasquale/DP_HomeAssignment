@@ -44,12 +44,12 @@ namespace WebApplication.Pages
 
             var jsonContent = new StringContent(JsonSerializer.Serialize(Input), Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://localhost:44382/User/login", jsonContent);
+            var response = await client.PostAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/login", jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
                 // Set the IsAdmin session value here based on the user's role
-                var userRoleResponse = await client.GetAsync($"https://localhost:44382/User/getUserRole?email={Input.Email}");
+                var userRoleResponse = await client.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserRole?email={Input.Email}");
                 if (userRoleResponse.IsSuccessStatusCode)
                 {
                     var userRole = await userRoleResponse.Content.ReadAsStringAsync();

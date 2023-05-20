@@ -31,7 +31,7 @@ namespace WebApplication.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var client = _clientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:44396/Product/{Id}");
+            var response = await client.GetAsync($"https://productcataloguemicroservice-mvug6bkbra-uc.a.run.app/Product/{Id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -50,7 +50,7 @@ namespace WebApplication.Pages
 
             // Get the UserId from the backend
             string userEmail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
-            var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={userEmail}");
+            var getUserIdResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserId?email={userEmail}");
             
             if (getUserIdResponse.IsSuccessStatusCode)
             {
@@ -70,7 +70,7 @@ namespace WebApplication.Pages
                         }
                     };
 
-                    var response = await client.PostAsJsonAsync("https://localhost:44381/Order", order);
+                    var response = await client.PostAsJsonAsync("https://ordermicroservice-mvug6bkbra-uc.a.run.app/Order", order);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -82,7 +82,7 @@ namespace WebApplication.Pages
                             Date = DateTime.UtcNow
                         };
 
-                        var notificationResponse = await client.PostAsJsonAsync("https://localhost:44382/User/notifications", notification);
+                        var notificationResponse = await client.PostAsJsonAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/notifications", notification);
                         if (!notificationResponse.IsSuccessStatusCode)
                         {
                             // Handle the failure to create the notification

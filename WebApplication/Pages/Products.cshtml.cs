@@ -30,7 +30,7 @@ namespace WebApplication.Pages
 
         private async Task<List<Product>> GetProductsByCategory(string category)
         {
-            var response = await _httpClient.GetAsync($"https://localhost:44396/Product?category={category}");
+            var response = await _httpClient.GetAsync($"https://productcataloguemicroservice-mvug6bkbra-uc.a.run.app/Product?category={category}");
 
             if (response.IsSuccessStatusCode)
             {

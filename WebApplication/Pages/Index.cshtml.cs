@@ -29,14 +29,14 @@ namespace WebApplication.Pages
 
             if (!string.IsNullOrEmpty(UserEmail))
             {
-                var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={UserEmail}");
+                var getUserIdResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserId?email={UserEmail}");
 
                 if (getUserIdResponse.IsSuccessStatusCode)
                 {
                     var getUserIdResult = await getUserIdResponse.Content.ReadFromJsonAsync<UserDetailsResponse>();
                     UserId = getUserIdResult.UserId;
 
-                    var getNotificationsResponse = await _httpClient.GetAsync($"https://localhost:44382/User/notifications?userId={UserId}");
+                    var getNotificationsResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/notifications?userId={UserId}");
                     if (getNotificationsResponse.IsSuccessStatusCode)
                     {
                         Notifications = await getNotificationsResponse.Content.ReadFromJsonAsync<List<Notification>>();

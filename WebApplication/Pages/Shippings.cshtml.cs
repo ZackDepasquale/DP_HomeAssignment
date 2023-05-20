@@ -29,7 +29,7 @@ namespace WebApplication.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var getShippingResponse = await _httpClient.GetAsync("https://localhost:44330/Shipping");
+            var getShippingResponse = await _httpClient.GetAsync("https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping");
             if (getShippingResponse.IsSuccessStatusCode)
             {
                 ShippingList = await getShippingResponse.Content.ReadFromJsonAsync<List<Shipping>>();
@@ -51,20 +51,20 @@ namespace WebApplication.Pages
         {
             // Get the userId from the backend
             string userEmail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
-            var getUserIdResponse = await _httpClient.GetAsync($"https://localhost:44382/User/getUserId?email={userEmail}");
+            var getUserIdResponse = await _httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/getUserId?email={userEmail}");
 
             if (getUserIdResponse.IsSuccessStatusCode)
             {
                 var getUserIdResult = await getUserIdResponse.Content.ReadFromJsonAsync<UserDetailsResponse>();
                 var userId = getUserIdResult.UserId;
 
-                var getDocumentIdUrl = $"https://localhost:44330/Shipping/GetDocId/{orderId}";
+                var getDocumentIdUrl = $"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/GetDocId/{orderId}";
                 var getDocumentIdResponse = await _httpClient.GetAsync(getDocumentIdUrl);
                 if (getDocumentIdResponse.IsSuccessStatusCode)
                 {
                     var documentId = await getDocumentIdResponse.Content.ReadAsStringAsync();
 
-                    var updateStatusUrl = $"https://localhost:44330/Shipping/UpdateStatus";
+                    var updateStatusUrl = $"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/UpdateStatus";
                     var updateStatusRequest = new UpdateStatusRequest
                     {
                         OrderId = documentId
@@ -84,7 +84,7 @@ namespace WebApplication.Pages
                             Date = DateTime.UtcNow
                         };
 
-                        var notificationResponse = await _httpClient.PostAsJsonAsync("https://localhost:44382/User/notifications", notification);
+                        var notificationResponse = await _httpClient.PostAsJsonAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/notifications", notification);
                         if (notificationResponse.IsSuccessStatusCode)
                         {
                             return RedirectToPage();

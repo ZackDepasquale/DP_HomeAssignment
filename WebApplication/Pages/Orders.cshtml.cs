@@ -24,7 +24,7 @@ namespace WebApplication.Pages
 
         public async Task OnGetAsync(string orderId)
         {
-            var getOrdersResponse = await _httpClient.GetAsync("https://localhost:44381/Order");
+            var getOrdersResponse = await _httpClient.GetAsync("https://ordermicroservice-mvug6bkbra-uc.a.run.app/Order");
             if (getOrdersResponse.IsSuccessStatusCode)
             {
                 Orders = await getOrdersResponse.Content.ReadFromJsonAsync<List<Order>>();
@@ -43,7 +43,7 @@ namespace WebApplication.Pages
                 }
                 else
                 {
-                    var getOrderResponse = await _httpClient.GetAsync($"https://localhost:44381/Order/{orderId}");
+                    var getOrderResponse = await _httpClient.GetAsync($"https://ordermicroservice-mvug6bkbra-uc.a.run.app/Order/{orderId}");
                     if (getOrderResponse.IsSuccessStatusCode)
                     {
                         SelectedOrderId = orderId;
@@ -66,13 +66,13 @@ namespace WebApplication.Pages
         public bool PaymentMade(string orderId)
         {
             // Make a GET request to check if payment exists for the order
-            var getPaymentResponse = _httpClient.GetAsync($"https://localhost:44320/Payment/{orderId}").Result;
+            var getPaymentResponse = _httpClient.GetAsync($"https://paymentmicroservice-mvug6bkbra-uc.a.run.app/Payment/{orderId}").Result;
             return getPaymentResponse.IsSuccessStatusCode;
         }
 
         public async Task<IActionResult> OnGetViewShippingDetailsAsync(string orderId)
         {
-            var getDocIdResponse = await _httpClient.GetAsync($"https://localhost:44330/Shipping/GetDocId/{orderId}");
+            var getDocIdResponse = await _httpClient.GetAsync($"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/GetDocId/{orderId}");
             if (getDocIdResponse.IsSuccessStatusCode)
             {
                 ShippingDetailsId = await getDocIdResponse.Content.ReadAsStringAsync();
@@ -86,7 +86,7 @@ namespace WebApplication.Pages
         }
         public string GetShippingId(string orderId)
         {
-            var getDocIdResponse = _httpClient.GetAsync($"https://localhost:44330/Shipping/GetDocId/{orderId}").Result;
+            var getDocIdResponse = _httpClient.GetAsync($"https://shippingmicroservice-mvug6bkbra-uc.a.run.app/Shipping/GetDocId/{orderId}").Result;
             if (getDocIdResponse.IsSuccessStatusCode)
             {
                 return getDocIdResponse.Content.ReadAsStringAsync().Result;

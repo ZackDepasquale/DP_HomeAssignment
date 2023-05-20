@@ -41,7 +41,7 @@ namespace WebApplication.Pages
             {
                 UserRegistrationModel.IsAdmin = HttpContext.Request.Form["isAdmin"] == "on";
 
-                var response = await httpClient.PostAsJsonAsync("https://localhost:44382/User/register", UserRegistrationModel);
+                var response = await httpClient.PostAsJsonAsync("https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/register", UserRegistrationModel);
 
                 if (response.IsSuccessStatusCode)
                 {

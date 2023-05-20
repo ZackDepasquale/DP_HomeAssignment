@@ -53,3 +53,4 @@ C:\source\DP_THA\DistributedProgramming_THA\DP_THA\ShippingMicroservice\obj\Debu
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\ShippingMicroservice\obj\Debug\net5.0\ShippingMicroservice.pdb
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\ShippingMicroservice\obj\Debug\net5.0\ShippingMicroservice.genruntimeconfig.cache
 C:\source\DP_THA\DistributedProgramming_THA\DP_THA\ShippingMicroservice\obj\Debug\net5.0\ref\ShippingMicroservice.dll
+C:\source\DP_THA\DistributedProgramming_THA\DP_THA\ShippingMicroservice\bin\Debug\net5.0\distributedprogramming-386215-8e01b2059244.json

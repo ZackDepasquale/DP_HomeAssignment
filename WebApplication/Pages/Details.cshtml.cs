@@ -20,7 +20,7 @@ namespace WebApplication.Pages
 
     public async Task<IActionResult> OnGetAsync(string email)
     {
-        var response = await httpClient.GetAsync($"https://localhost:44382/User/details?email={email}");
+        var response = await httpClient.GetAsync($"https://customersmicroservice-mvug6bkbra-uc.a.run.app/User/details?email={email}");
 
         if (response.IsSuccessStatusCode)
         {
