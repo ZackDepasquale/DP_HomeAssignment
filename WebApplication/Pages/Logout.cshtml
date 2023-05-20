@@ -1,0 +1,12 @@
+@page "/Logout"
+@model LogoutModel
+@{
+    ViewData["Title"] = "Logout";
+}
+
+<h2>Logout</h2>
+
+<form method="post" asp-page-handler="SignOut">
+    <button type="submit" class="btn btn-primary">Sign Out</button>
+    <input type="hidden" name="clearUserEmail" value="true" />
+</form>

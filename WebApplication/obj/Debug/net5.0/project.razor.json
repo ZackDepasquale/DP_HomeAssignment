@@ -17696,6 +17696,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\source\\DP_THA\\DistributedProgramming_THA\\DP_THA\\WebApplication\\Pages\\Logout.cshtml",
+      "TargetPath": "Pages\\Logout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\source\\DP_THA\\DistributedProgramming_THA\\DP_THA\\WebApplication\\Pages\\ShippingDetails.cshtml",
       "TargetPath": "Pages\\ShippingDetails.cshtml",
       "FileKind": "mvc"

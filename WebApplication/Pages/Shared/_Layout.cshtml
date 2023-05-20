@@ -42,6 +42,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Shippings">Shippings</a>
                                 </li>
+                                <li class="nav-item">
+                                    <form method="post" asp-page-handler="SignOut" asp-area="" asp-page="/Logout">
+                                        <button type="submit" class="nav-link btn btn-link text-dark">Sign Out</button>
+                                        <input type="hidden" name="clearUserEmail" value="true" />
+                                    </form>
+                                </li>
                             }
                         </ul>
 
