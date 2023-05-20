@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CustomerMicroservice/distributedprogramming-386215-81baa7fe6ba0.json
+/OrderMicroservice/distributedprogramming-386215-81baa7fe6ba0.json
+/PaymentMicroservice/distributedprogramming-386215-81baa7fe6ba0.json
+/ProductCatalogueMicroservice/distributedprogramming-386215-81baa7fe6ba0.json
+/ShippingMicroservice/distributedprogramming-386215-81baa7fe6ba0.json
+/WebApplication/distributedprogramming-386215-81baa7fe6ba0.json
